@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{path}}</title>
+    {{>head}}
+</head>
+
+<body>
+    {{>header}}
+    <div class="container pt-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">{{#ternary path 'realm' 'Name' 'First Name'}}{{/ternary}}</th>
+                    <th scope="col">{{#ternary path 'realm' 'Color' 'Email'}}{{/ternary}}</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data.data}}
+                <tr>
+                    <th scope="row">{{this.id}}</th>
+                    <td>{{#ternary ../path 'realm' this.name this.first_name}}{{/ternary}}</td>
+                    <td>{{#ternary ../path 'realm' this.color this.email}}{{/ternary}}</td>
+                    <td><a href="/{{../path}}/read/{{this.id}}" class="btn btn-info">Open</a></td>
+                    <td>
+                        <form method="get" action="/{{../path}}/delete/{{this.id}}">
+                            <input type="submit" class="btn btn-danger" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
