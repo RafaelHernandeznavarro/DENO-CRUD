@@ -2,16 +2,6 @@
   "$schema": "https://deno.land/x/denon/schema.json",
   "watch": true,
   "scripts": {
-    "dev": {
-      "cmd": "deno run --inspect-brk --unstable ./src/server.ts",
-      "desc": "run my server.ts",
-      "allow": [
-        "run",
-        "read",
-        "net"
-      ],
-      "tsconfig": "tsconfig.json"
-    },
     "start": {
       "cmd": "deno run --unstable ./src/server.ts",
       "desc": "run my server.ts",
