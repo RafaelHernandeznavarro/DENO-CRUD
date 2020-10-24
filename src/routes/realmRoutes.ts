@@ -7,6 +7,3 @@ export default class RealmRouter extends AbstractRoutes {
         super('realm', new RealmController())
     }
 };
-
-const realmInstance = new RealmRouter();
-export const RealmRoutes = realmInstance.getRoutes();
