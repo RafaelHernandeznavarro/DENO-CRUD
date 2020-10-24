@@ -1,36 +1,20 @@
 import { Request, Response } from '../deps.ts';
-import { Handlebars } from '../deps.ts';
+import RenderEngine from '../helpers/render.ts';
 
 export class AbstractController { 
 
     path: string;
     service: any;
+    renderEngine: any;
 
     constructor(path: string, service: any) {
         this.path = path;
         this.service = service;
+        this.renderEngine = new RenderEngine(path);
     }
 
-    public render = async (response: Response, template: string, data: any) => {
-        data.path = this.path;
-
-        const DEFAULT_HANDLEBARS_CONFIG = {
-            baseDir: Deno.cwd() + '/src/views',
-            extname: '.hbs',
-            layoutsDir: 'layouts/',
-            partialsDir: 'partials/',
-            defaultLayout: template,
-            // helpers: undefined,
-            helpers: {
-                ternary: (opt1: any, opt2: any, accept: any, reject:any) => {
-                    return (opt1 == opt2 ? accept : reject);
-                }
-            },
-            compilerOptions: undefined
-        };
-        const handle = new Handlebars(DEFAULT_HANDLEBARS_CONFIG);
-        const result: string = await handle.renderView('partials/index', data);
-
+    private render = async (response: Response, template: string, data: any) => {
+        const result = await this.renderEngine.render(template, data);
         response.body = result;
     }
 
